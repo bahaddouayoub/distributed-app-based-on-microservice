@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Auth-service/Annonce-service.iml" filepath="$PROJECT_DIR$/Auth-service/Annonce-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BackEnd.iml" filepath="$PROJECT_DIR$/.idea/BackEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Contract_Service/Contract_Service.iml" filepath="$PROJECT_DIR$/Contract_Service/Contract_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/announcement-Service/announcement-Service.iml" filepath="$PROJECT_DIR$/announcement-Service/announcement-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-getway/cloud-getway.iml" filepath="$PROJECT_DIR$/cloud-getway/cloud-getway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-registry/service-registry.iml" filepath="$PROJECT_DIR$/service-registry/service-registry.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,19 @@
+server:
+  port: 8085
+
+spring:
+  data:
+    mongodb:
+      host: databases
+      port: 27017
+      database: Announcement
+  application:
+    name: Announcements-Service
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://registry:8761/eureka/
+  instance:
+    hostname: registry

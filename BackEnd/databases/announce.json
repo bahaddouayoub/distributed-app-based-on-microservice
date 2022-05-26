@@ -1,0 +1,12 @@
+[{
+  "title": "Great Family House ",
+  "images": "https://firebasestorage.googleapis.com/v0/b/dhouse-fe0bb.appspot.com/o/productImages%2Fimages%2F_1644253604200?alt=media&token=af9207c7-58eb-4310-9fa0-286928747e35",
+  "description": "Single family residence\n5 bedrooms\n3 bathrooms\nBuilt in 2012\nForced air\nCeiling fan(s), central air\n3 Attached garage spaces\n10,454 sqft\n$111 price/sqft",
+  "HouseTitle": "https://firebasestorage.googleapis.com/v0/b/dhouse-fe0bb.appspot.com/o/productImages%2Fpdf%2F_1644253618889?alt=media&token=83379672-f74c-48c3-8cc6-c38db762ccff",
+  "cost": "0x94765fee0d63f3f7cb56ae5983570f2f598d6c93",
+  "location": "GOVAPPT1",
+  "validation": true,
+  "isValidate": true,
+  "_class": "org.sid.announcementService.entities.House"
+}
+]

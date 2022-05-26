@@ -1,0 +1,148 @@
+version: "3.8"
+services:
+  registry:
+    container_name: eurika-service
+    build:
+      context: BackEnd/service-registry
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: curl --fail http://localhost:8761 || echo "Error from eurika-server"
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    networks:
+      - net
+
+  cloud:
+    container_name: cloud-service
+    build:
+      context: BackEnd/cloud-getway
+      dockerfile: Dockerfile
+    environment:
+      - eurika.client.service-url.defaultZone=http://registry:8761/eurika/
+    ports:
+      - 9191:9191
+    healthcheck:
+      test: curl --fail http://localhost:9191 || echo "Error from getway-service"
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    depends_on:
+      registry:
+        condition: service_healthy
+    networks:
+      - net
+
+  databases:
+    image: mongo:latest
+    healthcheck:
+      test: curl --fail http://localhost || echo "Error from database-service"
+      interval: 60s
+      retries: 50
+      start_period: 20s
+      timeout: 10s
+    hostname: databases
+    networks:
+      - net
+
+  announcement:
+    container_name: announce-service
+    build:
+      context: BackEnd/announcement-Service
+      dockerfile: Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost || echo "Error from database-service"
+      interval: 60s
+      retries: 50
+      start_period: 20s
+      timeout: 10s
+    environment:
+      - eurika.client.service-url.defaultZone=http://registry:8761/eurika/
+    networks:
+      - net
+    ports:
+      - 8085:8085
+    depends_on:
+      registry:
+        condition: service_healthy
+      cloud:
+        condition: service_started
+      databases:
+        condition: service_started
+
+  authentication:
+    container_name: auth-service
+    build:
+      context: BackEnd/Auth-service
+      dockerfile: Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost || echo "Error from auth-service"
+      interval: 60s
+      retries: 50
+      start_period: 20s
+      timeout: 10s
+    environment:
+      - eurika.client.service-url.defaultZone=http://registry:8761/eurika/
+    networks:
+      - net
+    ports:
+      - 8095:8095
+    depends_on:
+      registry:
+        condition: service_healthy
+      cloud:
+        condition: service_started
+      databases:
+        condition: service_started
+  contract:
+    container_name: contract-service
+    build:
+      context: BackEnd/Contract_Service
+      dockerfile: Dockerfile
+    healthcheck:
+      test: curl --fail http://localhost || echo "Error from auth-service"
+      interval: 60s
+      retries: 50
+      start_period: 20s
+      timeout: 10s
+    environment:
+      - eurika.client.service-url.defaultZone=http://registry:8761/eurika/
+    networks:
+      - net
+    ports:
+      - 8088:8088
+    expose:
+      - "8088"
+    depends_on:
+      registry:
+        condition: service_healthy
+      cloud:
+        condition: service_started
+      databases:
+        condition: service_started
+#    volumes:
+#      -  data/db/:/home/ayoub/Descktop/lsi
+
+  my-app:
+    build:
+      context: FrontEnd
+      dockerfile: Dockerfile
+    container_name: blockchain
+    ports:
+      - 4200:80
+    depends_on:
+     - contract
+     - authentication
+     - announcement
+     - cloud
+    networks:
+      - net
+
+networks:
+  net:
+#volumes:
+#  data/db/:
